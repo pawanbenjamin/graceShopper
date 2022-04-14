@@ -4,7 +4,7 @@
 
 ### Node, PostrgreSql, Express, React
 
-#### Has a simple login and Authentication routes set up
+#### Has simple login and Authentication routes set up
 
 #### Authorization with JWT, BCRYPT, and HTTPONLY COOKIES
 
