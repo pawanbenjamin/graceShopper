@@ -9,7 +9,7 @@
 #### Authorization with JWT, BCRYPT, and HTTPONLY COOKIES
 
 ##### Make sure to make a db locally for dev
-```createdb <your db name>``` set it in db/pool.js
+```createdb <your db name>``` reset it in the ```db/pool.js``` file
 
 Seed the db:
 ```npm run seed```
