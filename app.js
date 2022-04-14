@@ -37,8 +37,4 @@ app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, './client/build', 'index.html'))
 })
 
-app.use((error, req, res, next) => {
-  res.status(500).send(error)
-})
-
 module.exports = app
