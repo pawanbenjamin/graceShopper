@@ -8,6 +8,14 @@
 
 #### Authorization with JWT, BCRYPT, and HTTPONLY COOKIES
 
+##### Make sure to make a db locally for dev
+```createdb bcryptJwtDemo``` or your own if you are changing it
+
+Seed the db:
+```npm run seed```
+
+```npm run start:dev``` starts both react and express servers
+
 ##### Deployment:
 
 ```heroku create```
