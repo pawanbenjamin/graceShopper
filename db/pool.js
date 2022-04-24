@@ -1,7 +1,7 @@
 const { Pool } = require('pg')
 
 // Use your own db name
-const dbName = 'bcryptJwtCookies'
+const dbName = 'shopper-bopper'
 
 const pool = new Pool({
   connectionString:

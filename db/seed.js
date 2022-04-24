@@ -1,10 +1,10 @@
 const pool = require('./pool')
-const { User } = require('./models')
-const { users } = require('./seedData')
+const { User, Product, Order_Product, Order } = require('./models')
+const { users, products, order_products } = require('./seedData')
 
 const dropTables = async () => {
   await pool.query(`
-      DROP TABLE IF EXISTS orders_products;
+      DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS products;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS users;
@@ -40,7 +40,6 @@ const createTables = async () => {
     `)
   await pool.query(`
       CREATE TABLE order_products(
-        id SERIAL PRIMARY KEY,
         "productId" INTEGER REFERENCES products(id),
         "orderId" INTEGER REFERENCES orders(id),
         qty INTEGER
@@ -51,6 +50,24 @@ const seedDb = async () => {
   console.log('Creating Users...')
   const createdUsers = await Promise.all(users.map(User.createUser))
   console.log('Users:', createdUsers)
+
+  console.log('Creating Products...')
+  const createdProduct = await Promise.all(products.map(Product.createProduct))
+  console.log('Products:', createdProduct)
+
+  console.log('Creating Orders...')
+  const createdOrders = await Promise.all(
+    createdUsers.map((user) => {
+      return Order.createOrderByUserId(user.id)
+    })
+  )
+  console.log('Empty orders created....')
+
+  console.log('Adding stuff to orders...')
+  const createdOrderProducts = await Promise.all(
+    order_products.map(Order_Product.addToCart)
+  )
+  console.log('Order_Products: ', createdOrderProducts)
 }
 
 const initDb = async () => {

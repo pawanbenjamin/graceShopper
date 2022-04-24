@@ -35,11 +35,10 @@ const products = [
   },
 ]
 
-const carts = [
+const order_products = [
   { orderId: 1, productId: 1, qty: 2 },
   { orderId: 2, productId: 2, qty: 3 },
   { orderId: 3, productId: 3, qty: 2 },
-  { orderId: 4, productId: 4, qty: 3 },
 ]
 
-module.exports = { users, products, carts }
+module.exports = { users, products, order_products }
