@@ -19,8 +19,8 @@ const getUserByUsername = async (username) => {
     rows: [user],
   } = await pool.query(
     `
-    SELECT * FROM users
-    WHERE users.username = $1
+          SELECT * FROM users
+          WHERE users.username = $1
     `,
     [username]
   )
@@ -33,8 +33,8 @@ const getUserById = async (id) => {
     rows: [user],
   } = await pool.query(
     `
-    SELECT * FROM users
-    WHERE users.id = $1
+          SELECT * FROM users
+          WHERE users.id = $1
     `,
     [id]
   )

@@ -5,9 +5,9 @@ async function createProduct({ name, description, price, stockQty, imageUrl }) {
     rows: [product],
   } = await pool.query(
     `
-            INSERT INTO products(name, description, price, "stockQty", "imageUrl")
-                VALUES ($1, $2, $3, $4, $5)
-                RETURNING * 
+        INSERT INTO products(name, description, price, "stockQty", "imageUrl")
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING * 
         `,
     [name, description, price, stockQty, imageUrl]
   )
@@ -16,7 +16,7 @@ async function createProduct({ name, description, price, stockQty, imageUrl }) {
 
 async function getAllProducts() {
   const { rows } = await pool.query(`
-      SELECT * FROM products
+        SELECT * FROM products
     `)
   return rows
 }
@@ -26,8 +26,8 @@ async function getProductById(productId) {
     rows: [product],
   } = await pool.query(
     `
-      SELECT * FROM products
-        WHERE id=$1
+        SELECT * FROM products
+            WHERE id=$1
     `,
     [productId]
   )

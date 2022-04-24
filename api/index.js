@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { authRequired } = require('./utils')
 
 router.get('/health', (req, res, next) => {
   res.send('API is healthy and ready to go!')

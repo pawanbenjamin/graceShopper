@@ -5,9 +5,9 @@ async function addToCart({ productId, orderId, qty = 1 }) {
     rows: [order_product],
   } = await pool.query(
     `
-      INSERT INTO order_products("productId", "orderId", qty)
-           VALUES($1, $2, $3)
-           RETURNING * 
+        INSERT INTO order_products("productId", "orderId", qty)
+            VALUES($1, $2, $3)
+            RETURNING * 
         `,
     [productId, orderId, qty]
   )
@@ -16,34 +16,34 @@ async function addToCart({ productId, orderId, qty = 1 }) {
 }
 
 async function removeFromCart({ productId, orderId }) {
-  const { rows } = await pool.query(
+  const {
+    rows: [op],
+  } = await pool.query(
     `
-      DELETE FROM order_products as op
-          WHERE op."productId"=$1 and op."orderId"=$2
-          RETURNING *
+        DELETE FROM order_products as op
+            WHERE op."productId"=$1 and op."orderId"=$2
+            RETURNING *
     `,
     [productId, orderId]
   )
 
-  console.log('THIS SHOULD BE THE DELETED THRU TABLE', rows)
-
-  return rows[0]
+  return op
 }
 
 async function updateQtyInCart({ productId, orderId, qty }) {
   const {
-    rows: [order_product],
+    rows: [op],
   } = await pool.query(
     `
-      UPDATE order_products
-        SET qty=$3
-        WHERE "orderId"=$2 and "productId"=$1
-        RETURNING *
+        UPDATE order_products
+          SET qty=$3
+          WHERE "orderId"=$2 and "productId"=$1
+          RETURNING *
     `,
     [productId, orderId, qty]
   )
 
-  return order_product
+  return op
 }
 
 module.exports = { addToCart, removeFromCart, updateQtyInCart }

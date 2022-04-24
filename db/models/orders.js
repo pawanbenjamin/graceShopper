@@ -16,40 +16,12 @@ async function createOrderByUserId(userId) {
 
 async function getAllOrders() {
   const { rows } = await pool.query(`
-    SELECT 
-        orders.id,
-        orders."userId" as "userId",         
-        orders."isActive",
-    CASE WHEN order_products."orderId" IS NULL THEN '[]'::json
-    ELSE 
-    JSON_AGG(
-        JSON_BUILD_OBJECT(
-            'id', products.id,
-        'name', products.name,
-        'description', products.description,
-        'price', products.price,
-        'qty', order_products.qty
-        )
-    ) END as items
-    FROM orders
-    LEFT JOIN order_products ON orders.id = order_products."orderId"
-    LEFT JOIN products ON order_products."productId" = products.id 
-    GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
-    `)
-  return rows
-}
-
-async function getOrderById(orderId) {
-  const {
-    rows: [order],
-  } = await pool.query(
-    `
-    SELECT 
-        orders.id,
-        orders."userId" as "userId",         
-        orders."isActive",
-    CASE WHEN order_products."orderId" IS NULL THEN '[]'::json
-    ELSE 
+        SELECT 
+            orders.id,
+            orders."userId" as "userId",         
+            orders."isActive",
+        CASE WHEN order_products."orderId" IS NULL THEN '[]'::json
+        ELSE 
         JSON_AGG(
             JSON_BUILD_OBJECT(
                 'id', products.id,
@@ -59,11 +31,39 @@ async function getOrderById(orderId) {
             'qty', order_products.qty
             )
         ) END as items
-    FROM orders
-    LEFT JOIN order_products ON orders.id = order_products."orderId"
-    LEFT JOIN products ON order_products."productId" = products.id 
-    WHERE orders.id = $1
-    GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
+        FROM orders
+        LEFT JOIN order_products ON orders.id = order_products."orderId"
+        LEFT JOIN products ON order_products."productId" = products.id 
+        GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
+    `)
+  return rows
+}
+
+async function getOrderById(orderId) {
+  const {
+    rows: [order],
+  } = await pool.query(
+    `
+        SELECT 
+            orders.id,
+            orders."userId" as "userId",         
+            orders."isActive",
+        CASE WHEN order_products."orderId" IS NULL THEN '[]'::json
+        ELSE 
+            JSON_AGG(
+                JSON_BUILD_OBJECT(
+                    'id', products.id,
+                'name', products.name,
+                'description', products.description,
+                'price', products.price,
+                'qty', order_products.qty
+                )
+            ) END as items
+        FROM orders
+        LEFT JOIN order_products ON orders.id = order_products."orderId"
+        LEFT JOIN products ON order_products."productId" = products.id 
+        WHERE orders.id = $1
+        GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
     `,
     [orderId]
   )
@@ -138,10 +138,10 @@ async function purchaseCart(orderId) {
     rows: [order],
   } = await pool.query(
     `
-      UPDATE orders
-        SET "isActive"=false
-        WHERE id=$1
-        RETURNING *
+        UPDATE orders
+          SET "isActive"=false
+          WHERE id=$1
+          RETURNING *
     `,
     [orderId]
   )
@@ -153,9 +153,9 @@ async function deleteOrderByOrderId(orderId) {
     rows: [deletedOrder],
   } = await pool.query(
     `
-      DELETE FROM orders
-        WHERE id=$1
-        RETURNING *
+        DELETE FROM orders
+          WHERE id=$1
+          RETURNING *
     `,
     [orderId]
   )
