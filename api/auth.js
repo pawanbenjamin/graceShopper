@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const authRouter = require('express').Router()
-const { User } = require('../db/models')
+const { User, Order } = require('../db/models')
 const { JWT_SECRET } = require('../secrets')
 const { authRequired } = require('./utils')
 const SALT_ROUNDS = 10
@@ -11,7 +11,8 @@ authRouter.post('/register', async (req, res, next) => {
     const { username, password } = req.body
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
     const user = await User.createUser({ username, password: hashedPassword })
-
+    // We could send the cart back here as well eventually
+    const cart = await Order.createCartByUserId(user.id)
     delete user.password
 
     const token = jwt.sign(user, JWT_SECRET)

@@ -1,6 +1,6 @@
 const pool = require('../pool')
 
-async function createOrderByUserId(userId) {
+async function createCartByUserId(userId) {
   const {
     rows: [cart],
   } = await pool.query(
@@ -164,7 +164,7 @@ async function deleteOrderByOrderId(orderId) {
 }
 
 module.exports = {
-  createOrderByUserId,
+  createCartByUserId,
   getOrderById,
   getAllOrdersByUserId,
   getCartByUserId,

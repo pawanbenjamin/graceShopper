@@ -13,16 +13,14 @@ export const register = async (username, password) => {
   return data
 }
 
-export const getMe = async (username) => {
-  const response = await fetch(`/api/auth/me`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      username,
-    }),
-  })
+export const logOut = async () => {
+  const response = await fetch('/api/auth/logout')
+  const data = response.json()
+  return data
+}
+
+export const getMe = async () => {
+  const response = await fetch(`/api/auth/me`)
   const data = await response.json()
   return data
 }

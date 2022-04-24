@@ -1,8 +1,9 @@
-import { useState, useRef } from 'react'
-import { register } from './api/auth'
+import { useState } from 'react'
+import useAuth from '../hooks/useAuth'
+import { register } from '../api/auth'
 
 const Register = () => {
-  const [user, setUser] = useState({})
+  const { setUser, setLoggedIn } = useAuth()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -19,7 +20,10 @@ const Register = () => {
     } else {
       setError(null)
       setUser(data.user)
+      setLoggedIn(true)
     }
+    setUsername('')
+    setPassword('')
   }
 
   return (
@@ -40,7 +44,6 @@ const Register = () => {
         />
         <button type="submit">Register!</button>
       </form>
-      {user ? <h3>Hello {user.username}</h3> : null}
     </div>
   )
 }

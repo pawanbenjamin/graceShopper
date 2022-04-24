@@ -57,10 +57,10 @@ const seedDb = async () => {
   const createdProduct = await Promise.all(products.map(Product.createProduct))
   console.log('Products:', createdProduct)
 
-  console.log('Creating Orders...')
-  const createdOrders = await Promise.all(
+  console.log('Creating Carts...')
+  const createdCarts = await Promise.all(
     createdUsers.map((user) => {
-      return Order.createOrderByUserId(user.id)
+      return Order.createCartByUserId(user.id)
     })
   )
   console.log('Empty orders created....')
