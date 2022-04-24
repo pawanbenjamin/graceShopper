@@ -101,7 +101,7 @@ async function getAllOrdersByUserId(userId) {
 }
 
 // Get Cart (order that is active) and include everything
-async function getCart(userId) {
+async function getCartByUserId(userId) {
   const {
     rows: [cart],
   } = await pool.query(
@@ -167,7 +167,7 @@ module.exports = {
   createOrderByUserId,
   getOrderById,
   getAllOrdersByUserId,
-  getCart,
+  getCartByUserId,
   getAllOrders,
   deleteOrderByOrderId,
   purchaseCart,

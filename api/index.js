@@ -5,6 +5,12 @@ router.get('/health', (req, res, next) => {
 })
 router.use('/auth', require('./auth'))
 
+router.use('/users', require('./users'))
+
 router.use('/products', require('./products'))
+
+router.use('/orders', require('./orders'))
+
+router.use('/order_products', require('./order_products'))
 
 module.exports = router

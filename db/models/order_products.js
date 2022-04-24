@@ -1,6 +1,6 @@
 const pool = require('../pool')
 
-async function addToCart({ productId, orderId, qty }) {
+async function addToCart({ productId, orderId, qty = 1 }) {
   const {
     rows: [order_product],
   } = await pool.query(
@@ -35,7 +35,7 @@ async function updateQtyInCart({ productId, orderId, qty }) {
     rows: [order_product],
   } = await pool.query(
     `
-      UPDATE orders_products
+      UPDATE order_products
         SET qty=$3
         WHERE "orderId"=$2 and "productId"=$1
         RETURNING *

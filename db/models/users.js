@@ -28,4 +28,18 @@ const getUserByUsername = async (username) => {
   return user
 }
 
-module.exports = { createUser, getUserByUsername }
+const getUserById = async (id) => {
+  const {
+    rows: [user],
+  } = await pool.query(
+    `
+    SELECT * FROM users
+    WHERE users.id = $1
+    `,
+    [id]
+  )
+  delete user.password
+  return user
+}
+
+module.exports = { createUser, getUserByUsername, getUserById }

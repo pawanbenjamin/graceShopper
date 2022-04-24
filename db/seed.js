@@ -40,6 +40,7 @@ const createTables = async () => {
     `)
   await pool.query(`
       CREATE TABLE order_products(
+        id SERIAL PRIMARY KEY,
         "productId" INTEGER REFERENCES products(id),
         "orderId" INTEGER REFERENCES orders(id),
         qty INTEGER
