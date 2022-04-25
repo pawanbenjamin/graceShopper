@@ -16,6 +16,7 @@ async function addToCart({ productId, orderId, qty = 1 }) {
 }
 
 async function removeFromCart({ productId, orderId }) {
+  console.log('before query')
   const {
     rows: [op],
   } = await pool.query(
@@ -26,7 +27,7 @@ async function removeFromCart({ productId, orderId }) {
     `,
     [productId, orderId]
   )
-
+  console.log('order prod', op)
   return op
 }
 

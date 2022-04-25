@@ -48,6 +48,7 @@ const useCart = () => {
       if (loggedIn) {
         //remove from backend
         const result = await removeItemFromBackend(cart.id, newItem.id)
+        console.log('REMOVE BACKED RESULT', result)
         const filteredItems = cart.items.filter((item) => {
           return item.id !== newItem.id
         })

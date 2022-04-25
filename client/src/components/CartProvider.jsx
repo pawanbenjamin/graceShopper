@@ -7,7 +7,7 @@ import useProducts from '../hooks/useProducts'
 const CartProvider = ({ children }) => {
   const { user, loggedIn } = useAuth()
   const { products } = useProducts()
-  console.log('Products', products)
+
   const [cart, setCart] = useState({ items: [], username: user.username })
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const CartProvider = ({ children }) => {
       } else {
         // Check if there's a cart in localStorage
         if (localStorage.getItem('cart')) {
+          // If there is, set the guest cart in our context
           const localCart = JSON.parse(localStorage.getItem('cart'))
           console.log('Guest Cart:', localCart)
           let existingItems = []
