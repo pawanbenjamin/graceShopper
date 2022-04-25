@@ -44,7 +44,8 @@ const createTables = async () => {
           id SERIAL PRIMARY KEY,
           "productId" INTEGER REFERENCES products(id),
           "orderId" INTEGER REFERENCES orders(id),
-          qty INTEGER
+          qty INTEGER,
+          UNIQUE("productId", "orderId")
         );`)
 }
 

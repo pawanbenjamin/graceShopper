@@ -20,7 +20,7 @@ const CartProvider = ({ children }) => {
       }
     }
     getCart()
-  }, [loggedIn])
+  }, [loggedIn, user])
 
   return (
     <CartContext.Provider value={{ cart, setCart }}>

@@ -34,7 +34,7 @@ async function getAllOrders() {
         FROM orders
         LEFT JOIN order_products ON orders.id = order_products."orderId"
         LEFT JOIN products ON order_products."productId" = products.id 
-        GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
+        GROUP BY orders.id, order_products."orderId"
     `)
   return rows
 }
@@ -63,7 +63,7 @@ async function getOrderById(orderId) {
         LEFT JOIN order_products ON orders.id = order_products."orderId"
         LEFT JOIN products ON order_products."productId" = products.id 
         WHERE orders.id = $1
-        GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
+        GROUP BY orders.id, order_products."orderId"
     `,
     [orderId]
   )
@@ -93,7 +93,7 @@ async function getAllOrdersByUserId(userId) {
         LEFT JOIN order_products ON orders.id = order_products."orderId"
         LEFT JOIN products ON order_products."productId" = products.id 
         WHERE orders."userId" = $1
-        GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
+        GROUP BY orders.id, order_products."orderId"
     `,
     [userId]
   )
@@ -125,7 +125,7 @@ async function getCartByUserId(userId) {
         LEFT JOIN order_products ON orders.id = order_products."orderId"
         LEFT JOIN products ON order_products."productId" = products.id 
         WHERE orders."userId" = $1 and orders."isActive" = true
-        GROUP BY orders.id, order_products."orderId", order_products."productId", order_products.qty
+        GROUP BY orders.id, order_products."orderId"
     `,
     [userId]
   )

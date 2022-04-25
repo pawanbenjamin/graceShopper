@@ -1,6 +1,8 @@
 import { useCallback, useContext } from 'react'
 import CartContext from '../CartContext'
 
+import { addItemToBackend } from '../api/cart'
+
 import useAuth from './useAuth'
 
 const useCart = () => {
@@ -8,15 +10,26 @@ const useCart = () => {
   const { cart, setCart } = useContext(CartContext)
 
   const addItem = useCallback(
-    (item) => {
+    async (item) => {
       if (loggedIn) {
         //add to backend
-        console.log('item', item)
-        const newItems = [...cart.items, item]
-        setCart({ ...cart, items: newItems })
+        const result = await addItemToBackend(cart.id, item.id)
+        if (result.name === 'error') {
+          console.log('Already in Your Cart!')
+          console.log(result)
+        } else {
+          console.log('ADD TO CART RESULT', result)
+          item.qty = 1
+          console.log('item', item)
+
+          const newItems = [...cart.items, item]
+          setCart({ ...cart, items: newItems })
+        }
       } else {
         //add to localStorage
+        item.qty = 1
         console.log('item', item)
+
         const newItems = [...cart.items, item]
         setCart({ ...cart, items: newItems })
       }
@@ -25,7 +38,7 @@ const useCart = () => {
   )
 
   const removeItem = useCallback(
-    (newItem) => {
+    async (newItem) => {
       if (loggedIn) {
         //remove from backend
         const filteredItems = cart.items.filter((item) => {
