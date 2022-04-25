@@ -24,7 +24,7 @@ const getUserByUsername = async (username) => {
     `,
     [username]
   )
-  delete user.password
+
   return user
 }
 

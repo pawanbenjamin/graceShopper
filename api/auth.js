@@ -34,12 +34,12 @@ authRouter.post('/register', async (req, res, next) => {
 authRouter.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body
-
+    console.log('REQ BODY', req.body)
     const user = await User.getUserByUsername(username)
-
+    console.log('user', user)
     // This is a boolean
     const validPassword = await bcrypt.compare(password, user.password)
-
+    console.log('valid password?', validPassword)
     if (validPassword) {
       const token = jwt.sign(user, JWT_SECRET)
 

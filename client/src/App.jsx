@@ -1,15 +1,17 @@
 import React from 'react'
 import Register from './components/Register'
+
 import useAuth from './hooks/useAuth'
-import useCart from './hooks/useCart'
 
 import { logOut } from './api/auth'
+import Products from './components/Products'
+import Cart from './components/Cart'
+import Login from './components/Login'
 
 function App() {
   const { user, setLoggedIn } = useAuth()
-  const { cart } = useCart()
 
-  console.log(cart)
+  console.log('USER', user)
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -24,6 +26,9 @@ function App() {
         Logout
       </button>
       <Register />
+      <Login />
+      <Products />
+      <Cart />
     </div>
   )
 }

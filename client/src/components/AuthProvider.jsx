@@ -1,6 +1,6 @@
-import React, { Children, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AuthContext from '../AuthContext'
-import { getMe } from '../api/auth'
+import { fetchMe } from '../api/auth'
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({ username: 'guest' })
@@ -8,11 +8,13 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const me = await getMe()
+      const me = await fetchMe()
+      console.log('me', me)
       if (me.loggedIn === false) {
         setUser({ username: 'guest' })
       } else {
         setUser(me)
+        setLoggedIn(true)
       }
     }
     getUser()
