@@ -14,4 +14,29 @@ export const addItemToBackend = async (orderId, productId) => {
   return data
 }
 
-export const addItemToLocalStorage = async () => {}
+export const removeItemFromBackend = async (orderId, productId) => {
+  const response = await fetch(`/api/order_products/${orderId}/${productId}`, {
+    method: 'DELETE',
+  })
+  const data = response.json()
+  return data
+}
+
+export const addItemToLocalStorage = async (productId) => {
+  const localCart = JSON.parse(localStorage.getItem('cart'))
+  if (!localCart[productId]) {
+    localCart[productId] = 1
+  }
+  localStorage.setItem('cart', JSON.stringify(localCart))
+}
+
+export const removeItemFromLocalStorage = async (productId) => {
+  const localCart = JSON.parse(localStorage.getItem('cart'))
+  for (const key in localCart) {
+    console.log({ key, productId })
+    if (+key === productId) {
+      delete localCart[key]
+    }
+  }
+  localStorage.setItem('cart', JSON.stringify(localCart))
+}

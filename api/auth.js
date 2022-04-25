@@ -13,6 +13,7 @@ authRouter.post('/register', async (req, res, next) => {
     const user = await User.createUser({ username, password: hashedPassword })
     // We could send the cart back here as well eventually
     const cart = await Order.createCartByUserId(user.id)
+
     delete user.password
 
     const token = jwt.sign(user, JWT_SECRET)

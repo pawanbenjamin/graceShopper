@@ -1,7 +1,12 @@
 import { useCallback, useContext } from 'react'
 import CartContext from '../CartContext'
 
-import { addItemToBackend } from '../api/cart'
+import {
+  addItemToBackend,
+  removeItemFromBackend,
+  addItemToLocalStorage,
+  removeItemFromLocalStorage,
+} from '../api/cart'
 
 import useAuth from './useAuth'
 
@@ -27,6 +32,7 @@ const useCart = () => {
         }
       } else {
         //add to localStorage
+        addItemToLocalStorage(item.id)
         item.qty = 1
         console.log('item', item)
 
@@ -41,12 +47,14 @@ const useCart = () => {
     async (newItem) => {
       if (loggedIn) {
         //remove from backend
+        const result = await removeItemFromBackend(cart.id, newItem.id)
         const filteredItems = cart.items.filter((item) => {
           return item.id !== newItem.id
         })
         setCart({ ...cart, items: filteredItems })
       } else {
         //remove from localStorage
+        removeItemFromLocalStorage(newItem.id)
         const filteredItems = cart.items.filter((item) => {
           return item.id !== newItem.id
         })
