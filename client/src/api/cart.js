@@ -52,3 +52,14 @@ export const removeItemFromLocalStorage = async (productId) => {
   }
   localStorage.setItem('cart', JSON.stringify(localCart))
 }
+
+export const editQtyInBackend = async (orderId, productId, qty) => {
+  const response = await fetch(
+    `/api/order_products/${orderId}/${productId}/${qty}`,
+    {
+      method: 'PATCH',
+    }
+  )
+  const data = response.json()
+  return data
+}

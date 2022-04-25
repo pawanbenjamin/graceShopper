@@ -5,7 +5,7 @@ async function createCartByUserId(userId) {
     rows: [cart],
   } = await pool.query(
     `
-            INSERT INTO orders("userId")
+        INSERT INTO orders("userId")
                 VALUES($1)
                 RETURNING * 
         `,
@@ -24,7 +24,7 @@ async function getAllOrders() {
         ELSE 
         JSON_AGG(
             JSON_BUILD_OBJECT(
-                'id', products.id,
+            'id', products.id,
             'name', products.name,
             'description', products.description,
             'price', products.price,
@@ -52,7 +52,7 @@ async function getOrderById(orderId) {
         ELSE 
             JSON_AGG(
                 JSON_BUILD_OBJECT(
-                    'id', products.id,
+                'id', products.id,
                 'name', products.name,
                 'description', products.description,
                 'price', products.price,
@@ -82,7 +82,7 @@ async function getAllOrdersByUserId(userId) {
         ELSE 
             JSON_AGG(
                 JSON_BUILD_OBJECT(
-                    'id', products.id,
+                'id', products.id,
                 'name', products.name,
                 'description', products.description,
                 'price', products.price,
@@ -114,7 +114,7 @@ async function getCartByUserId(userId) {
         ELSE 
             JSON_AGG(
                 JSON_BUILD_OBJECT(
-                    'id', products.id,
+                'id', products.id,
                 'name', products.name,
                 'description', products.description,
                 'price', products.price,
