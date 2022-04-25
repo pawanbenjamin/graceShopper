@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect } from 'react'
 import { fetchCart } from '../api/cart'
 import CartContext from '../CartContext'
 import useAuth from '../hooks/useAuth'
