@@ -4,6 +4,19 @@ export const fetchCart = async (userId) => {
   return cart
 }
 
+export const fetchLocalStorageCart = (products) => {
+  const localCart = JSON.parse(localStorage.getItem('cart'))
+  let existingItems = []
+  for (const key in localCart) {
+    const product = products.find((element) => element.id === +key)
+    if (product) {
+      product.qty = localCart[key]
+      existingItems.push(product)
+    }
+  }
+  return existingItems
+}
+
 export const addItemToBackend = async (orderId, productId) => {
   console.log({ orderId, productId })
   const response = await fetch(`/api/order_products/${orderId}/${productId}`, {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchCart } from '../api/cart'
+import { fetchCart, fetchLocalStorageCart } from '../api/cart'
 import CartContext from '../CartContext'
 import useAuth from '../hooks/useAuth'
 import useProducts from '../hooks/useProducts'
@@ -19,16 +19,7 @@ const CartProvider = ({ children }) => {
         // Check if there's a cart in localStorage
         if (localStorage.getItem('cart')) {
           // If there is, set the guest cart in our context
-          const localCart = JSON.parse(localStorage.getItem('cart'))
-          let existingItems = []
-          for (const key in localCart) {
-            const product = products.find((element) => element.id === +key)
-            console.log('Product', product)
-            if (product) {
-              product.qty = localCart[key]
-              existingItems.push(product)
-            }
-          }
+          const existingItems = fetchLocalStorageCart(products)
           setCart({ items: existingItems, username: user.username })
         } else {
           localStorage.setItem('cart', JSON.stringify({}))
