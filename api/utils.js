@@ -3,12 +3,10 @@ const { JWT_SECRET } = require('../secrets')
 
 const authRequired = async (req, res, next) => {
   const token = req.signedCookies.token
-  console.log('Cookie Token:', token)
   try {
     const user = await jwt.verify(token, JWT_SECRET)
     delete user.password
     req.user = user
-    console.log('Req.user:', req.user)
   } catch (error) {
     res.status(401).send({
       loggedIn: false,
