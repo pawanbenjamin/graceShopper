@@ -20,7 +20,6 @@ const CartProvider = ({ children }) => {
         if (localStorage.getItem('cart')) {
           // If there is, set the guest cart in our context
           const localCart = JSON.parse(localStorage.getItem('cart'))
-          console.log('Guest Cart:', localCart)
           let existingItems = []
           for (const key in localCart) {
             const product = products.find((element) => element.id === +key)

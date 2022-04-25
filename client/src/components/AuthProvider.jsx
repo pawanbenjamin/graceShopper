@@ -9,7 +9,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const getUser = async () => {
       const me = await fetchMe()
-      console.log('me', me)
       if (me.loggedIn === false) {
         setUser({ username: 'guest' })
       } else {

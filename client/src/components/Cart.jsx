@@ -4,7 +4,6 @@ import CartItem from './CartItem'
 
 const Cart = () => {
   const { cart } = useCart()
-  console.log('Cart', cart)
 
   return (
     <div>

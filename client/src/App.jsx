@@ -11,8 +11,6 @@ import Login from './components/Login'
 function App() {
   const { user, setLoggedIn } = useAuth()
 
-  console.log('USER', user)
-
   return (
     <div style={{ textAlign: 'center' }}>
       <h3>Hello, {user.username}!</h3>
