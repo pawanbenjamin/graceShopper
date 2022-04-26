@@ -7,6 +7,7 @@ import {
   addItemToLocalStorage,
   removeItemFromLocalStorage,
   editQtyInBackend,
+  editQtyInLocalStorage,
 } from '../api/cart'
 
 import useAuth from './useAuth'
@@ -62,8 +63,8 @@ const useCart = () => {
   const editQty = useCallback(
     async (itemId, newQty) => {
       if (loggedIn) {
+        //edit in backend
         await editQtyInBackend(cart.id, itemId, newQty)
-
         const mappedItems = cart.items.map((item) => {
           if (item.id === itemId) {
             item.qty = newQty
@@ -72,6 +73,15 @@ const useCart = () => {
         })
         setCart({ ...cart, items: mappedItems })
       } else {
+        //edit in localStorage
+        editQtyInLocalStorage(itemId, newQty)
+        const mappedItems = cart.items.map((item) => {
+          if (item.id === itemId) {
+            item.qty = newQty
+          }
+          return item
+        })
+        setCart({ ...cart, items: mappedItems })
       }
     },
     [loggedIn, cart, setCart]

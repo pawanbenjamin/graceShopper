@@ -21,7 +21,6 @@ router.patch('/:orderId/:productId/:qty', async (req, res, next) => {
 })
 
 router.delete('/:orderId/:productId', async (req, res, next) => {
-  console.log('hello')
   try {
     const deletedOrderProduct = await Order_Product.removeFromCart(req.params) // productId, orderId
     res.send(deletedOrderProduct)

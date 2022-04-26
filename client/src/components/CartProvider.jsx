@@ -13,6 +13,8 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     const getCart = async () => {
       if (loggedIn) {
+        // if there is a cart in localStorage, get it and set the cart as this one's
+        // parseLocalStorageCart function??
         const cart = await fetchCart(user.id)
         setCart(cart)
       } else {

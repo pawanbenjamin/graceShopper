@@ -63,3 +63,11 @@ export const editQtyInBackend = async (orderId, productId, qty) => {
   const data = response.json()
   return data
 }
+
+export const editQtyInLocalStorage = async (productId, qty) => {
+  const localCart = JSON.parse(localStorage.getItem('cart'))
+  if (localCart[productId]) {
+    localCart[productId] = qty
+  }
+  localStorage.setItem('cart', JSON.stringify(localCart))
+}
