@@ -11,9 +11,7 @@ const SingleProduct = ({ product }) => {
       <h4>{product.description}</h4>
       <h4>{product.price}</h4>
       {cart.items.filter((item) => {
-        if (item.name === product.name) {
-          return item
-        }
+        return item.name === product.name
       }).length ? (
         <h5>Already in Cart!</h5>
       ) : (

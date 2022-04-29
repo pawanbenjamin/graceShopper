@@ -1,8 +1,40 @@
+// -------- Fucntions for Authorized Users ----------
+
 export const fetchCart = async (userId) => {
   const response = await fetch(`/api/users/${userId}/cart`)
   const cart = await response.json()
   return cart
 }
+
+export const addItemToBackend = async (orderId, productId) => {
+  console.log({ orderId, productId })
+  const response = await fetch(`/api/order_products/${orderId}/${productId}`, {
+    method: 'POST',
+  })
+  const data = await response.json()
+  return data
+}
+
+export const editQtyInBackend = async (orderId, productId, qty) => {
+  const response = await fetch(
+    `/api/order_products/${orderId}/${productId}/${qty}`,
+    {
+      method: 'PATCH',
+    }
+  )
+  const data = response.json()
+  return data
+}
+
+export const removeItemFromBackend = async (orderId, productId) => {
+  const response = await fetch(`/api/order_products/${orderId}/${productId}`, {
+    method: 'DELETE',
+  })
+  const data = response.json()
+  return data
+}
+
+// -------- Fucntions for Guest Users ----------
 
 export const fetchLocalStorageCart = (products) => {
   const localCart = JSON.parse(localStorage.getItem('cart'))
@@ -15,23 +47,6 @@ export const fetchLocalStorageCart = (products) => {
     }
   }
   return existingItems
-}
-
-export const addItemToBackend = async (orderId, productId) => {
-  console.log({ orderId, productId })
-  const response = await fetch(`/api/order_products/${orderId}/${productId}`, {
-    method: 'POST',
-  })
-  const data = await response.json()
-  return data
-}
-
-export const removeItemFromBackend = async (orderId, productId) => {
-  const response = await fetch(`/api/order_products/${orderId}/${productId}`, {
-    method: 'DELETE',
-  })
-  const data = response.json()
-  return data
 }
 
 export const addItemToLocalStorage = async (productId) => {
@@ -51,17 +66,6 @@ export const removeItemFromLocalStorage = async (productId) => {
     }
   }
   localStorage.setItem('cart', JSON.stringify(localCart))
-}
-
-export const editQtyInBackend = async (orderId, productId, qty) => {
-  const response = await fetch(
-    `/api/order_products/${orderId}/${productId}/${qty}`,
-    {
-      method: 'PATCH',
-    }
-  )
-  const data = response.json()
-  return data
 }
 
 export const editQtyInLocalStorage = async (productId, qty) => {
