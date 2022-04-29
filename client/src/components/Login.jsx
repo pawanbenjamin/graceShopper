@@ -30,6 +30,7 @@ const Login = () => {
     <div>
       {error ? <h3>Error! {error}</h3> : null}
       <form onSubmit={handleSubmit}>
+        <h4>Already a user?</h4>
         <input
           type="text"
           value={username}

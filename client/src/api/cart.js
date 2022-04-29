@@ -7,7 +7,6 @@ export const fetchCart = async (userId) => {
 }
 
 export const addItemToBackend = async (orderId, productId) => {
-  console.log({ orderId, productId })
   const response = await fetch(`/api/order_products/${orderId}/${productId}`, {
     method: 'POST',
   })

@@ -8,7 +8,7 @@ const authRequired = async (req, res, next) => {
     delete user.password
     req.user = user
   } catch (error) {
-    res.status(401).send({
+    res.send({
       loggedIn: false,
       message: 'You are def not authorized.',
     })

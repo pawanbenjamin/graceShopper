@@ -14,17 +14,23 @@ function App() {
   return (
     <div style={{ textAlign: 'center' }}>
       <h3>Hello, {user.username}!</h3>
-      <button
-        onClick={async () => {
-          const result = await logOut()
-          console.log(result)
-          setLoggedIn(false)
-        }}
-      >
-        Logout
-      </button>
-      <Register />
-      <Login />
+
+      {user.id ? (
+        <button
+          onClick={async () => {
+            await logOut()
+            setLoggedIn(false)
+          }}
+        >
+          Logout
+        </button>
+      ) : (
+        <>
+          <Register />
+          <Login />
+        </>
+      )}
+
       <Products />
       <Cart />
     </div>

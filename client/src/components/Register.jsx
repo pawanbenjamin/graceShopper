@@ -30,6 +30,7 @@ const Register = () => {
     <div>
       {error ? <h3>Error! {error}</h3> : null}
       <form onSubmit={handleSubmit}>
+        <h4>New to our site?</h4>
         <input
           type="text"
           value={username}

@@ -7,7 +7,7 @@ const Cart = () => {
 
   return (
     <div>
-      Your Cart:
+      <h3>Your Cart:</h3>
       {cart.items.map((item, i) => (
         <CartItem key={`i${i}`} item={item} />
       ))}
